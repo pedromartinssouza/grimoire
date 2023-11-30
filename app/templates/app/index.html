@@ -1,0 +1,22 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+
+<div class="jumbotron">
+    <h1>The Grimoire</h1>
+    <p class="lead">A dummy card collection/deck manager built on Django</p>
+    <p><a href="https://www.djangoproject.com/" class="btn btn-primary btn-large">Learn more about Django &raquo;</a></p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Manage your cards</h2>
+        <p><a class="btn btn-default" href="{% url 'cards' %}">Cards &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Manage your decks</h2>
+        <p><a class="btn btn-default" href="{% url 'decks' %}">Decks &raquo;</a></p>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+
+<h2>{{ title }}</h2>
+<h3>{{ message }}</h3>
+<div class="row">
+    <div class="column">
+        <form action="/deck_editor/" method="POST">
+            <div class="form-group">
+                {% csrf_token %}
+                {{ form }}
+                <br>
+                <form method="POST">
+                    <div class="form-group">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{id}}" name="deck-edit-id">
+                        <input type="Submit" value="Submit" class="btn">
+                    </div>
+                </form>
+            </div>
+        </form>
+    </div>
+
+    <div class="column">
+        <table class="table table-bordered table-hover table-striped">
+            <tr class>
+                <th>quantity</th>
+                <th>cardName</th>
+                <th>actions</th>
+            </tr>
+            {% for card in list_of_cards_in_deck %}
+            <tr>
+                <td>{{ card.quantity }}</td>
+                <td>{{ card.cardId.name }}</td>
+                <td>
+                    <form method="post">
+                        <div class="form-group">
+                            {% csrf_token %}
+                            <input type="hidden" value="{{card.id}}" name="delete-id">
+                            <input type="hidden" value="{{id}}" name="deck-edit-id">
+                            <input type="Submit" value="🗑" class="btn">
+                        </div>
+                    </form>
+                </td>
+
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+<div class="row" style="height: 50%;">
+    <table class="table table-bordered table-hover table-striped">
+        <tr class>
+            <th>id</th>
+            <th>name</th>
+            <th>manaCost</th>
+            <th>cmc</th>
+            <th>colors</th>
+            <th>types</th>
+            <th>supertypes</th>
+            <th>subtypes</th>
+            <th>rarity</th>
+            <th>text</th>
+        </tr>
+        {% for item in all_cards %}
+        <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.manaCost }}</td>
+            <td>{{ item.cmc }}</td>
+            <td>{{ item.colors }}</td>
+            <td>{{ item.types }}</td>
+            <td>{{ item.supertypes }}</td>
+            <td>{{ item.subtypes }}</td>
+            <td>{{ item.rarity }}</td>
+            <td>{{ item.text }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
